@@ -12,4 +12,4 @@ This project also requires a Last.FM API key. To get one, simply go to the Last.
     apiSecret = "YOUR_API_SECRET_HERE"
 
 The project will include this file throughout to make requests as needed.
-Make sure to add this file to your `.gitignore` file if you do make contributions to this repo.
+Make sure to add this file to your `.gitignore` file if you do make contributions to this repo. Again, please **do not** include this file in any commits you make to this repo or any others, as your API key would be compromised.
