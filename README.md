@@ -6,7 +6,7 @@ Software to visualize Last.FM data. Built with Python.
 
 This project uses Python 3 and requires Redis to store all data.
 
-This project also requires a Last.FM API key. To get one, simply go to the Last.FM api website and create a new application. Create an `apiKey.py` file with the following contents:
+This project also requires a Last.FM API key. To get one, simply go to the Last.FM api website and create a new application. Create an `apiKey.py` file in the main directory with `apiKey` and `apiSecret` variables. Here's an example:
 
     apiKey    = "YOUR_API_KEY_HERE"
     apiSecret = "YOUR_API_SECRET_HERE"
