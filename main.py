@@ -45,3 +45,20 @@ def process_user_page(page_content):
             mongo_collection.insert_one(to_insert)
 
     print('Added page ', page_content['recenttracks']['@attr']['page'], 'out of ', page_content['recenttracks']['@attr']['totalPages'])
+
+# Provides a generator to iterate over a user's tracks using a for loop.
+def iterate_user_tracks(username):
+    to_find = {'username': username}
+    found = mongo_collection.find(to_find)
+
+    for document in found:
+        yield document
+
+    try:
+        while found.hasNext():
+            found.next()
+
+            for document in found:
+                yield document
+
+    except AttributeError: return
