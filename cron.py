@@ -16,8 +16,11 @@ while True:
 
         total_pages = int(current_page['recenttracks']['@attr']['totalPages'])
 
+        time.sleep(1)
+
         for i in range(2, total_pages):
             current_page = get_user_page(current_user, i + 1)
             process_user_page(current_page)
+            time.sleep(1)
 
     time.sleep(1)

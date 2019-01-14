@@ -1,8 +1,13 @@
 import requests
 import redis
+import pymongo
 from apiKey import api_key
 
 redis_client = redis.Redis()
+
+mongo_client = pymongo.MongoClient('mongodb://localhost:27017')
+mongo_database = mongo_client['main']
+mongo_collection = mongo_database['listeningData']
 
 # Adds user to the processing queue in Redis.
 # Raises a LookupError if the user was not found on LastFM, and raises RuntimeErrors if the user is already in the
@@ -31,7 +36,12 @@ def get_user_page(username, page):
 
 # Given a plain JSON object of the page, process and store the page's content in the database.
 def process_user_page(page_content):
-   tracks = page_content['recenttracks']['track']
+    user = page_content['recenttracks']['@attr']['user']
+    tracks = page_content['recenttracks']['track']
 
-   for track in tracks:
-       print(track['name'])
+    for track in tracks:
+        if 'date' in track:
+            to_insert = {'username': user, 'artist': track['artist']['#text'], 'name': track['name'], 'album': track['album']['#text'], 'imageUrl': track['image'][3]['#text'], 'date': track['date']['uts']}
+            mongo_collection.insert_one(to_insert)
+
+    print('Added page ', page_content['recenttracks']['@attr']['page'], 'out of ', page_content['recenttracks']['@attr']['totalPages'])
