@@ -18,6 +18,8 @@ while True:
 
         time.sleep(1)
 
+        # Need to add graceful shutdown and support for interruptions.
+        # I.E. Need to be saving the current page in case of shutdown in Redis.
         for i in range(2, total_pages):
             current_page = get_user_page(current_user, i + 1)
             process_user_page(current_page)
